@@ -20,6 +20,7 @@ using IdentityServer3.Core.Configuration;
 using IdentityServer3.Core.Models;
 using IdentityServer3.Core.Services;
 using IdentityServer3.Core.Services.Default;
+using IdentityServer3.Core.Services.InMemory;
 using IdentityServer3.EntityFramework;
 
 namespace IdProvider.IdSvr
@@ -32,12 +33,11 @@ namespace IdProvider.IdSvr
             {
                 ConnectionString = connString,
             };
-            ConfigureClients(Clients.Get(), efConfig);
-            ConfigureScopes(Scopes.Get(), efConfig);
-            var factory = new IdentityServerServiceFactory();
+            var factory = new IdentityServerServiceFactory()
+                .UseInMemoryClients(Clients.Get())
+                .UseInMemoryScopes(Scopes.Get())
+                ;
 
-            factory.RegisterConfigurationServices(efConfig);
-            factory.RegisterOperationalServices(efConfig);
             factory.CorsPolicyService = new Registration<ICorsPolicyService>(new DefaultCorsPolicyService { AllowAll = true });
             factory.ConfigureCustomUserService(connString);
             return factory;

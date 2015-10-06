@@ -69,6 +69,28 @@ namespace IdProvider.IdSvr
                         new ScopeClaim(Constants.ClaimTypes.Name),
                         new ScopeClaim(Constants.ClaimTypes.Role)
                     }
+                },
+                new Scope
+                {
+                    Enabled = true,
+                    Name = "roles",
+                    Type = ScopeType.Identity,
+                    Claims = new List<ScopeClaim>
+                    {
+                        new ScopeClaim("role")
+                    }
+                },
+                new Scope
+                {
+                    Enabled = true,
+                    Name = "sampleApi",
+                    Description = "Access to a sample API",
+                    Type = ScopeType.Resource,
+
+                    Claims = new List<ScopeClaim>
+                    {
+                        new ScopeClaim("role")
+                    }
                 }
             };
         }

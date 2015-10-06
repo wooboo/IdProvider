@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-using IdentityManager.Core.Logging;
-using IdentityManager.Logging;
 using IdentityServer3.Core.Configuration;
 using IdProvider.IdSvr;
 using Microsoft.Owin.Security.Facebook;
@@ -30,7 +28,6 @@ namespace IdProvider
     {
         public void Configuration(IAppBuilder app)
         {
-            LogProvider.SetCurrentLogProvider(new DiagnosticsTraceLogProvider());
             Log.Logger = new LoggerConfiguration()
                .MinimumLevel.Debug()
                .WriteTo.Trace()
@@ -54,6 +51,7 @@ namespace IdProvider
                 {
                     EnableCspReportEndpoint = true
                 },
+                
             };
 
             app.UseIdentityServer(options);
